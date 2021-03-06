@@ -16,6 +16,7 @@ export const Record = ({item, field, label}) => {
 const ItemDetails = (props) => {
 
     const { data: item, image} = props
+    if(!item) return <h3>Select item</h3>
     return (
       <div className="item-details card">
         <img className="item-image"

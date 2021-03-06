@@ -8,7 +8,8 @@ const withData = (
     return class extends Component {
         state = {
             data: null,
-            image: null
+            image: null,
+            loading: false
         }
 
         componentDidUpdate(prevProps) {
@@ -23,16 +24,19 @@ const withData = (
 
         updateItem = () => {
             const { itemId } = this.props
+            console.log({itemId})
+            this.setState({loading: true})
             this.props.getData(itemId)
                 .then(data => this.setState({
                     data,
-                    image: (itemId ? this.props.getImageUrl(data) : null)
+                    image: (itemId ? this.props.getImageUrl(data) : null),
+                    loading: false,
                 }))
         }
 
         render() {
-            const { data, image } = this.state
-            if(!data) return <Loader />
+            const { data, image, loading } = this.state
+            if(loading) return <Loader />
             return <ErrorBoundry>
                     <MyComponent {...this.props} data={data} image={image}/>
                 </ErrorBoundry>
