@@ -24,7 +24,6 @@ const withData = (
 
         updateItem = () => {
             const { itemId } = this.props
-            console.log({itemId})
             this.setState({loading: true})
             this.props.getData(itemId)
                 .then(data => this.setState({

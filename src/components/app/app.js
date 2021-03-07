@@ -6,8 +6,8 @@ import './app.css';
 import {Page} from "../page";
 import SwapiService from "../../services/SwapiServices";
 import { SwapiProvider } from "../Context";
-import {PersonDetails, PersonList, PlanetDetails, PlanetList, StarshipDetails, StarshipList} from "../sw-components";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import {PersonDetails, PersonList, PlanetList, StarshipDetails, StarshipList} from "../sw-components";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 const swapi = new SwapiService()
 
@@ -25,14 +25,17 @@ class App extends React.Component{
                     <Router>
                         <Header/>
                         <RandomPlanet/>
-                        <Route path={'/'} render={() => <h2>Welcome to StarDB</h2>} exact/>
-                        <Route path={'/people/:id?'} render={() => People} />
-                        <Route path={'/planets'} render={() => Planets} />
-                        <Route path={'/starships'} render={() => Starships} exact/>
-                        <Route path={'/starships/:id'} render={({match}) => {
-                            const {id} = match.params
-                            return <StarshipDetails itemId={id}/>
-                        }} />
+                        <Switch>
+                            <Route path={'/'} render={() => <h2>Welcome to StarDB</h2>} exact/>
+                            <Route path={'/people/:id?'} render={() => People} />
+                            <Route path={'/planets'} render={() => Planets} />
+                            <Route path={'/starships'} render={() => Starships} exact/>
+                            <Route path={'/starships/:id'} render={({match}) => {
+                                const {id} = match.params
+                                return <StarshipDetails itemId={id}/>
+                            }} />
+                            <Route render={() => <h2>Page not found</h2>}/>
+                        </Switch>
                     </Router>
                 </SwapiProvider>
             </div>

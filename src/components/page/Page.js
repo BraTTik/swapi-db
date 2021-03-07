@@ -8,7 +8,7 @@ const Page = (props) => {
     const handleSelect = (itemId) => {
         history.push(itemId)
     }
-    const { id } = match
+    const { id } = match.params
 
 
     return details
